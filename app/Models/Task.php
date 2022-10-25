@@ -12,7 +12,7 @@ class Task extends Model
 
     protected $with = ['children'];
     protected $fillable = [
-        'title', 'description', 'is_completed', 'due_at', 'parent_id'
+        'title', 'description', 'user_id', 'is_completed', 'due_at', 'parent_id'
     ];
 
     public function children(): HasMany
