@@ -36,7 +36,7 @@ class SanctumController extends Controller
     public function logout(Request $request)
     {
         $request->user()->tokens()->delete();
-        return \response()->json([], Response::HTTP_NO_CONTENT);
+        return response()->json([], Response::HTTP_NO_CONTENT);
     }
 
 }
