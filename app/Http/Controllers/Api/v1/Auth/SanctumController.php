@@ -32,9 +32,10 @@ class SanctumController extends Controller
             return response()->json(['user' => UserResource::make($user), 'token' => $token]);
         }
 
-    public function logout()
+    public function logout(LoginRequest $request)
     {
-
+        $request->user()->tokens()->delete();
+        return \response()->json([], Response::HTTP_NO_CONTENT);
     }
 
 }

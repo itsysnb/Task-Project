@@ -27,3 +27,12 @@ Route::group([
     Route::post('register', [\App\Http\Controllers\Api\v1\Auth\SanctumController::class, 'register'])->name('auth.register');
     Route::post('login', [\App\Http\Controllers\Api\v1\Auth\SanctumController::class, 'login'])->name('auth.login');
 });
+
+Route::group([
+    'middleware' => 'auth:sanctum',
+    'namespace' => 'v1',
+    'prefix' => 'v1',
+    'as' => 'v1',
+], function (){
+    Route::post('logout', [\App\Http\Controllers\Api\v1\Auth\SanctumController::class, 'logout'])->name('auth.logout');
+});
