@@ -24,7 +24,6 @@ class SanctumTest extends TestCase
 
     public function test_new_user_can_register()
     {
-        $user = User::factory()->create();
         $this->postJson(route('v1.auth.register'),[
             'first_name' => 'jack',
             'last_name' => 'jackson',
@@ -33,5 +32,15 @@ class SanctumTest extends TestCase
             'password_confirmation' => 'jack6070!A'
         ])->assertCreated();
         $this->assertDatabaseHas('users', ['first_name' => 'jack']);
+    }
+
+    public function test_user_can_login()
+    {
+        $response = $this->postJson(route('v1.auth.login'), [
+            'email' => 'jackson@gmail.com',
+            'password' => 'jack6070!A',
+            'device_name' => 'apple'
+        ])->assertOk();
+        $this->assertArrayHasKey('token', $response->json());
     }
 }

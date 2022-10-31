@@ -10,13 +10,19 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Testing\Fluent\Concerns\Has;
 use Illuminate\Validation\ValidationException;
 
 class SanctumController extends Controller
 {
     public function register(RegisterRequest $request)
     {
-            $attributes = User::create($request->validated());
+            $attributes = User::create([
+                'first_name' => $request->first_name,
+                'last_name' => $request->first_name,
+                'email' => $request->email,
+                'password' => Hash::make($request->password),
+            ]);
             return response()->json(UserResource::make($attributes), Response::HTTP_CREATED);
         }
 
@@ -29,7 +35,7 @@ class SanctumController extends Controller
                     'email' => ['The provided credentials are incorrect.'],
                 ]);
             }
-            $token = $user->createToken( $request->device_name )->plainTextToken;
+            $token = $user->createToken($request->device_name)->plainTextToken;
             return response()->json(['user' => UserResource::make($user), 'token' => $token]);
         }
 
