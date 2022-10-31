@@ -21,7 +21,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::group([
     'namespace' => 'v1',
     'prefix' => 'v1',
-    'as' => 'v1',
+    'as' => 'v1.',
 ], function (){
     // Authentication routes
     Route::post('register', [\App\Http\Controllers\Api\v1\Auth\SanctumController::class, 'register'])->name('auth.register');
@@ -32,7 +32,7 @@ Route::group([
     'middleware' => 'auth:sanctum',
     'namespace' => 'v1',
     'prefix' => 'v1',
-    'as' => 'v1',
+    'as' => 'v1.',
 ], function (){
     Route::post('logout', [\App\Http\Controllers\Api\v1\Auth\SanctumController::class, 'logout'])->name('auth.logout');
 });
