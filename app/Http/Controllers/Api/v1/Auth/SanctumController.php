@@ -7,6 +7,7 @@ use App\Http\Requests\LoginRequest;
 use App\Http\Requests\RegisterRequest;
 use App\Http\Resources\UserResource;
 use App\Models\User;
+use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\ValidationException;
@@ -32,7 +33,7 @@ class SanctumController extends Controller
             return response()->json(['user' => UserResource::make($user), 'token' => $token]);
         }
 
-    public function logout(LoginRequest $request)
+    public function logout(Request $request)
     {
         $request->user()->tokens()->delete();
         return \response()->json([], Response::HTTP_NO_CONTENT);
