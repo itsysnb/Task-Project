@@ -9,6 +9,7 @@ use Tests\TestCase;
 
 class SanctumTest extends TestCase
 {
+    use RefreshDatabase;
     /**
      * A basic feature test example.
      *
@@ -21,14 +22,16 @@ class SanctumTest extends TestCase
         $response->assertStatus(200);
     }
 
-    public function test_authenticate()
+    public function test_new_user_can_register()
     {
         $user = User::factory()->create();
-        $response = $this->post(route('v1.auth.login', [
-            'email' => $user->email,
-            'password' => 'password'
-        ]));
-        $this->assertAuthenticated();
-        $response->assertOk();
+        $this->postJson(route('v1.auth.register'),[
+            'first_name' => 'jack',
+            'last_name' => 'jackson',
+            'email' => 'jackson@gmail.com',
+            'password' => 'jack6070!A',
+            'password_confirmation' => 'jack6070!A'
+        ])->assertCreated();
+        $this->assertDatabaseHas('users', ['first_name' => 'jack']);
     }
 }
