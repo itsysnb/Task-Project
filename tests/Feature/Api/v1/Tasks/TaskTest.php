@@ -10,6 +10,12 @@ use Tests\TestCase;
 class TaskTest extends TestCase
 {
 
+    public function setUp(): void
+    {
+        parent::setUp();
+        $this->authUser();
+    }
+
     public function test_user_can_store_task()
     {
         $task = Task::factory()->create();
