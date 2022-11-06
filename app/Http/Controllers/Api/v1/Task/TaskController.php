@@ -6,7 +6,9 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\TaskRequest;
 use App\Http\Resources\TaskResource;
 use App\Models\Task;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 
 class TaskController extends Controller
 {
@@ -56,5 +58,49 @@ class TaskController extends Controller
     {
         $task->delete();
         return response()->json(['data' => 'your task deleted success.']);
+    }
+
+    public function filter(Request $request)
+    {
+        $request->validate([
+            'name' =>[
+                Rule::in([
+                    'today',
+                    'tomorrow',
+                    'completed',
+                    'uncompleted'
+                ]),
+            ],
+        ]);
+        $method = $request->get('name');
+        return $this->$method();
+    }
+
+    public function toggleCompleted(Task $task)
+    {
+        $task->update([
+            'is_completed' => !$task->is_completed,
+        ]);
+        return $task;
+    }
+
+    public function today()
+    {
+        return Task::whereDate('due_at', Carbon::today())->get();
+    }
+
+    public function tomorrow()
+    {
+        return Task::whereDate('due_at', Carbon::tomorrow())->get();
+    }
+
+    public function completed()
+    {
+        return Task::with('children')->where('is_completed', true)->get();
+    }
+
+    public function uncompleted()
+    {
+        return Task::with('children')->where('is_completed', false)->get();
     }
 }
