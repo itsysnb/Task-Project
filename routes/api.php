@@ -38,4 +38,7 @@ Route::group([
     Route::post('logout', [\App\Http\Controllers\Api\v1\Auth\SanctumController::class, 'logout'])->name('auth.logout');
     // task routes
     Route::get('tasks', [\App\Http\Controllers\Api\v1\Task\TaskController::class, 'index'])->name('task.index');
+    Route::post('tasks', [\App\Http\Controllers\Api\v1\Task\TaskController::class, 'store'])->name('task.store');
+    Route::patch('tasks/{task}', [\App\Http\Controllers\Api\v1\Task\TaskController::class, 'update'])->name('task.update');
+    Route::delete('tasks/{task}', [\App\Http\Controllers\Api\v1\Task\TaskController::class, 'destroy'])->name('task.delete');
 });
