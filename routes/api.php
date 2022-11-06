@@ -41,6 +41,6 @@ Route::group([
     Route::post('tasks', [\App\Http\Controllers\Api\v1\Task\TaskController::class, 'store'])->name('task.store');
     Route::patch('tasks/{task}', [\App\Http\Controllers\Api\v1\Task\TaskController::class, 'update'])->name('task.update');
     Route::delete('tasks/{task}', [\App\Http\Controllers\Api\v1\Task\TaskController::class, 'destroy'])->name('task.delete');
-    Route::patch('{task}/toggle-completed', [\App\Http\Controllers\Api\v1\Task\TaskController::class, 'toggleCompleted'])->name('task.toggle.completed');
-    Route::get('filter', [\App\Http\Controllers\Api\v1\Task\TaskController::class, 'filter'])->name('task.filter');
+    Route::patch('tasks/{task}/toggle-completed', [\App\Http\Controllers\Api\v1\Task\TaskController::class, 'toggleCompleted'])->name('task.toggle.completed');
+    Route::get('tasks/filter', [\App\Http\Controllers\Api\v1\Task\TaskController::class, 'filter'])->name('task.filter');
 });
