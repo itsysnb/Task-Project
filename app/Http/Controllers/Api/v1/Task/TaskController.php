@@ -8,6 +8,7 @@ use App\Http\Resources\TaskResource;
 use App\Models\Task;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use Illuminate\Validation\Rule;
 
 class TaskController extends Controller
@@ -32,7 +33,7 @@ class TaskController extends Controller
     public function store(TaskRequest $request)
     {
         $task = Task::create($request->validated());
-        return response()->json(['task' => TaskResource::make($task)]);
+        return response()->json(['task' => TaskResource::make($task)], Response::HTTP_CREATED);
     }
 
     /**

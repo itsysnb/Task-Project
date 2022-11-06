@@ -18,7 +18,7 @@ class TaskTest extends TestCase
 
     public function test_user_can_store_task()
     {
-        $task = Task::factory()->create();
+        $task = $this->createTask();
         $this->postJson(route('v1.task.store'),[
             'title' => $task->title,
             'description' => $task->description,
