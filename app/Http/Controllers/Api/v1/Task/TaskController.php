@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Api\v1\Task;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\TaskRequest;
+use App\Http\Resources\TaskResource;
 use App\Models\Task;
 use Illuminate\Http\Request;
 
@@ -11,51 +13,21 @@ class TaskController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function index()
     {
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
+        $tasks = Task::all();
+        return response()->json(['tasks' => TaskResource::collection($tasks)]);
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Http\Requests\TaskRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
+    public function store(TaskRequest $request)
     {
         //
     }
@@ -63,7 +35,7 @@ class TaskController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param   \App\Http\Requests\TaskRequest $request
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
