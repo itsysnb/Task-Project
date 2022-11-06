@@ -17,7 +17,9 @@ class TaskFactory extends Factory
     public function definition()
     {
         return [
-            //
+            'title' => fake()->title,
+            'description' => fake()->text,
+            'due_at' => fake()->date
         ];
     }
 }
