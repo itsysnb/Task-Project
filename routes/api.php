@@ -34,5 +34,8 @@ Route::group([
     'prefix' => 'v1',
     'as' => 'v1.',
 ], function (){
+    // logout route
     Route::post('logout', [\App\Http\Controllers\Api\v1\Auth\SanctumController::class, 'logout'])->name('auth.logout');
+    // task routes
+    Route::get('tasks', [\App\Http\Controllers\Api\v1\Task\TaskController::class, 'index'])->name('task.index');
 });
