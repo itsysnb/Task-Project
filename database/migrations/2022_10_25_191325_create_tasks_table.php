@@ -21,7 +21,7 @@ return new class extends Migration
             $table->timestamp('due_at');
             $table->foreignId('parent_id')
                 ->nullable()
-                ->constrained('users')
+                ->constrained('tasks')
                 ->onDelete('cascade')
                 ->onUpdate('cascade');
             $table->timestamps();
