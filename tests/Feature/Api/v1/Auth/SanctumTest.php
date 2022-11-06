@@ -10,17 +10,6 @@ use Tests\TestCase;
 
 class SanctumTest extends TestCase
 {
-    /**
-     * A basic feature test example.
-     *
-     * @return void
-     */
-    public function test_example()
-    {
-        $response = $this->get('/');
-
-        $response->assertStatus(200);
-    }
 
     public function test_new_user_can_register()
     {
@@ -42,5 +31,15 @@ class SanctumTest extends TestCase
             'device_name' => 'apple'
         ])->assertOk();
         $this->assertArrayHasKey('token', $response->json());
+    }
+
+    public  function test_user_invalid_can_login()
+    {
+        $this->postJson(route('v1.auth.login'),[
+            'email' => 'adam@gmail.com',
+            'password' => '$2y$10$FgGS3pQDO0vM5goqJs1UQ.2aAvTZwej1XxJplagmsKVGQyAekJa/S',
+            'device_name' => 'samsung'
+        ])->assertUnauthorized();
+
     }
 }
