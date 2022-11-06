@@ -40,7 +40,7 @@ class TaskController extends Controller
      * @param  \App\Models\Task $task
      * @return \Illuminate\Http\JsonResponse
      */
-    public function update(Request $request, Task $task)
+    public function update(TaskRequest $request, Task $task)
     {
         $task->update($request->validated());
         return response()->json(['data' => 'your task updated success']);
