@@ -31,4 +31,11 @@ class TaskTest extends TestCase
             'due_at' => $task->due_at
         ]);
     }
+
+    public function test_user_can_update_task()
+    {
+        $task = $this->createTask();
+        $this->patchJson(route('v1.task.update', $task->id), ['title' => 'updated task title'])->assertOk();
+        $this->assertDatabaseHas('tasks', ['title' => 'updated task title']);
+    }
 }
