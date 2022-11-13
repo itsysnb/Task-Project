@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api\v1\Task;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\TaskRequest;
 use App\Http\Resources\TaskResource;
+use App\Jobs\ProcessTask;
 use App\Models\Task;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -33,6 +34,7 @@ class TaskController extends Controller
     public function store(TaskRequest $request)
     {
         $task = Task::create($request->validated());
+        ProcessTask::dispatch($task)->delay(now()->addMinutes(2));
         return response()->json(['task' => TaskResource::make($task)], Response::HTTP_CREATED);
     }
 
