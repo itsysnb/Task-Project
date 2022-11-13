@@ -38,4 +38,11 @@ class TaskTest extends TestCase
         $this->patchJson(route('v1.task.update', $task->id), ['title' => 'updated task title'])->assertOk();
         $this->assertDatabaseHas('tasks', ['title' => 'updated task title']);
     }
+
+    public function test_user_can_delete_task()
+    {
+        $task = $this->createTask();
+        $this->deleteJson(route('v1.task.delete', $task->id))->assertOk();
+        $this->assertDatabaseMissing('tasks', ['title' => $task->title]);
+    }
 }
